@@ -10,6 +10,6 @@ namespace ClassLibrary1lab_spp
     {
         void StartTrace();
         void StopTrace();
-        TraceResult GetTraceResult();
+        //TraceResult GetTraceResult();
     }
 }

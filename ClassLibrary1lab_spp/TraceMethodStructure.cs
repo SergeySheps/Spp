@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1lab_spp
 {
-    class TraceMethodStructure
+    public class TraceMethodStructure
     {
+        public string ClassName;
+        public string MethodName;
+        public int Time;
+        public List<TraceMethodStructure> Methods;
     }
 }

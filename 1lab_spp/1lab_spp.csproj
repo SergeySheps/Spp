@@ -7,10 +7,11 @@
     <ProjectGuid>{DF6B2A11-9A08-407F-82B3-6105FB8C000C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>_1lab_spp</RootNamespace>
-    <AssemblyName>_1lab_spp</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AssemblyName>1lab_spp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1lab_spp\TracerLibrary.csproj">
+      <Project>{4baf3a96-39f1-4225-b2b6-504fb51e571c}</Project>
+      <Name>TracerLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
