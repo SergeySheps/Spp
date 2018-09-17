@@ -30,11 +30,6 @@ namespace ClassLibrary1lab_spp
             stopwatch.Start();
         }
 
-        //public static long GetMethodTraceTime()
-        //{
-        //    return stopwatch.ElapsedMilliseconds;
-        //}
-
         public void StopMethodTrace()
         {
             stopwatch.Stop();

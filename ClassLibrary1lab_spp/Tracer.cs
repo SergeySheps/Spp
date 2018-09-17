@@ -13,7 +13,12 @@ namespace ClassLibrary1lab_spp
     public class Tracer : ITracer
     {
 
-        public TraceResult TraceResult { get; set; }
+        public TraceResult TraceResult;
+
+        public Tracer()
+        {
+            TraceResult = new TraceResult();
+        }
 
         public void StartTrace ()
         {
@@ -36,7 +41,7 @@ namespace ClassLibrary1lab_spp
 
         public TraceResult GetTraceResult()
         {
-            return TraceResult = new TraceResult();
+            return TraceResult;
         }
     }
 }

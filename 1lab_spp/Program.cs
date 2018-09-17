@@ -6,31 +6,48 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using ClassLibrary1lab_spp;
+using System.IO;
 
 namespace _1lab_spp
 {
     class Program
     {
         private static Tracer tracer; 
-        //private static List<Thread> _threads;
+        private static List<Thread> threads;
 
         static void Main()
         {
-            //_threads = new List<Thread>();
+            threads = new List<Thread>();
             tracer = new Tracer();
-            //MultipleThreadMethod();
-            //string serialize = JsonConvert.SerializeObject(_tracer.TraceResult, Formatting.Indented);
+            MultipleThreadMethod();
+            string serialize = JsonConvert.SerializeObject(tracer.GetTraceResult(), Formatting.Indented);
             //File.WriteAllText("result.txt", serialize);
-            //Console.WriteLine(serialize);
-            SomeMethod();
+            Console.WriteLine(serialize);
+            Console.ReadLine();
+            //TestMethod();
             
             Console.ReadLine();
         }
 
-        private static void SomeMethod()
+        private static void MultipleThreadMethod()
         {
-            Thread.Sleep(1000);
+            for (int i = 0; i < 2; i++)
+            {
+                Thread thread = new Thread(TestMethod);
+                threads.Add(thread);
+                thread.Start();
+            }
+
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+        }
+
+        private static void TestMethod()
+        {
             tracer.StartTrace();
             Thread.Sleep(1000);
 
