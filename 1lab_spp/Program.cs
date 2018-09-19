@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ClassLibrary1lab_spp;
 using System.IO;
@@ -21,13 +16,18 @@ namespace _1lab_spp
         {
             threads = new List<Thread>();
             tracer = new Tracer();
+
             MultipleThreadMethod();
-            string serialize = JsonConvert.SerializeObject(tracer.GetTraceResult(), Formatting.Indented);
-            //File.WriteAllText("result.txt", serialize);
-            Console.WriteLine(serialize);
-            Console.ReadLine();
-            //TestMethod();
-            
+
+            var jsonSerializedText = JsonConvert.SerializeObject(tracer.GetTraceResult(), Formatting.Indented);
+            var doc = JsonConvert.DeserializeXmlNode(jsonSerializedText);
+
+            File.WriteAllText("result.json", jsonSerializedText);
+            File.WriteAllText("result.xml", doc.InnerXml);
+
+            Console.WriteLine(jsonSerializedText);
+            Console.WriteLine(doc.InnerXml);
+
             Console.ReadLine();
         }
 
@@ -35,7 +35,7 @@ namespace _1lab_spp
         {
             for (int i = 0; i < 2; i++)
             {
-                Thread thread = new Thread(TestMethod);
+                Thread thread = new Thread(TestMethod1);
                 threads.Add(thread);
                 thread.Start();
             }
@@ -46,7 +46,15 @@ namespace _1lab_spp
             }
         }
 
-        private static void TestMethod()
+        private static void TestMethod1()
+        {
+            tracer.StartTrace();
+            Thread.Sleep(1000);
+            TestMethod2();
+            tracer.StopTrace();
+        }
+
+        private static void TestMethod2()
         {
             tracer.StartTrace();
             Thread.Sleep(1000);
