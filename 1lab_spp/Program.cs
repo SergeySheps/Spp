@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Newtonsoft.Json;
 using ClassLibrary1lab_spp;
-using System.IO;
 
 namespace _1lab_spp
 {
@@ -19,14 +17,16 @@ namespace _1lab_spp
 
             MultipleThreadMethod();
 
-            var jsonSerializedText = JsonConvert.SerializeObject(tracer.GetTraceResult(), Formatting.Indented);
-            var doc = JsonConvert.DeserializeXmlNode(jsonSerializedText);
+            var jsonSerializer = new JsonCustomSerializer();
+            var jsonSerializedText = jsonSerializer.Serialize(tracer.GetTraceResult());
 
-            File.WriteAllText("result.json", jsonSerializedText);
-            File.WriteAllText("result.xml", doc.InnerXml);
+            var xmlSerializer = new XmlSerializer();
+            var xmlSerializedText = xmlSerializer.Serialize(jsonSerializedText);
 
-            Console.WriteLine(jsonSerializedText);
-            Console.WriteLine(doc.InnerXml);
+            var outputResult = new FileOutput();
+
+            outputResult.OutputData(jsonSerializedText, ".json");
+            outputResult.OutputData(xmlSerializedText, ".xml");
 
             Console.ReadLine();
         }
@@ -57,7 +57,7 @@ namespace _1lab_spp
         private static void TestMethod2()
         {
             tracer.StartTrace();
-            Thread.Sleep(1000);
+            Thread.Sleep(200);
 
             tracer.StopTrace();
         }

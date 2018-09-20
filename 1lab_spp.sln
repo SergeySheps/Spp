@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1lab_spp", "1lab_spp\1lab_s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TracerLibrary", "ClassLibrary1lab_spp\TracerLibrary.csproj", "{4BAF3A96-39F1-4225-B2B6-504FB51E571C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TracerTests.Test", "TracerTests.Test\TracerTests.Test.csproj", "{B2E05338-8D07-4AA8-A9BB-11B21F8548A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4BAF3A96-39F1-4225-B2B6-504FB51E571C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAF3A96-39F1-4225-B2B6-504FB51E571C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BAF3A96-39F1-4225-B2B6-504FB51E571C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E05338-8D07-4AA8-A9BB-11B21F8548A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E05338-8D07-4AA8-A9BB-11B21F8548A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E05338-8D07-4AA8-A9BB-11B21F8548A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E05338-8D07-4AA8-A9BB-11B21F8548A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

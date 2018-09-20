@@ -5,7 +5,8 @@ namespace ClassLibrary1lab_spp
 {
     public class ThreadResult
     {
-        public List<MethodInfo> Methods { get; }
+        public long? Time => Methods[0]?.Time;
+        public List<MethodInfo> Methods { get; }  
         private readonly Stack<MethodInfo> stack;
 
         public ThreadResult()
