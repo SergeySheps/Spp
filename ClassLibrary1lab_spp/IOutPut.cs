@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClassLibrary1lab_spp
+﻿namespace ClassLibrary1lab_spp
 {
-    interface IOutput
+    interface IOutputFile
     {
         void OutputData(string text, string fileFormat);
     }

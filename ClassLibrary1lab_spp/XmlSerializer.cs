@@ -1,19 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace ClassLibrary1lab_spp
 {
-    public class XmlSerializer :ISerializer
+    public class XmlCustomSerializer :ISerializer
     {
-        public string Serialize(object value)
+        public string Serialize(List<ThreadResult> tracerResultList)
         {
-            var doc = JsonConvert.DeserializeXmlNode((string)value);
+            MemoryStream memoryStream = new MemoryStream();
 
-            return doc.InnerXml;
+            var xmlSerializer = new XmlSerializer(typeof(List<ThreadResult>));
+
+            xmlSerializer.Serialize(memoryStream, tracerResultList);
+            memoryStream.Position = 0;
+
+            StreamReader sr = new StreamReader(memoryStream);
+            return sr.ReadToEnd();
         }
     }
 }

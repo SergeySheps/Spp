@@ -17,16 +17,25 @@ namespace _1lab_spp
 
             MultipleThreadMethod();
 
+            var tracerResult = tracer.GetTraceResult();
+
+            var tracerResultList = new List<ThreadResult>();
+            tracerResultList.AddRange(tracerResult.ThreadResults.Values);
+
             var jsonSerializer = new JsonCustomSerializer();
-            var jsonSerializedText = jsonSerializer.Serialize(tracer.GetTraceResult());
+            var jsonSerializedText = jsonSerializer.Serialize(tracerResultList);
 
-            var xmlSerializer = new XmlSerializer();
-            var xmlSerializedText = xmlSerializer.Serialize(jsonSerializedText);
+            var xmlSerializer = new XmlCustomSerializer();
+            var xmlSerializedText = xmlSerializer.Serialize(tracerResultList);
 
-            var outputResult = new FileOutput();
+            var fileOutputResult = new FileOutput();
+            var consoleOutputResult = new ConsoleOutput();
 
-            outputResult.OutputData(jsonSerializedText, ".json");
-            outputResult.OutputData(xmlSerializedText, ".xml");
+            fileOutputResult.OutputData(jsonSerializedText, ".json");
+            fileOutputResult.OutputData(xmlSerializedText, ".xml");
+
+            consoleOutputResult.OutputData(jsonSerializedText);
+            consoleOutputResult.OutputData(xmlSerializedText);
 
             Console.ReadLine();
         }

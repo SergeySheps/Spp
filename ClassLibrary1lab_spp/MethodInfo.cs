@@ -4,20 +4,24 @@ using System.Reflection;
 
 namespace ClassLibrary1lab_spp
 {
+
     public class MethodInfo
     {
         private readonly Stopwatch stopwatch;
-        public string Name { get; }
-        public string Class { get; }
-        public long Time => stopwatch.ElapsedMilliseconds;
+        public string methodName;
+        public string className;
+        public long time;
         public List<MethodInfo> Methods { get; }
+
+        public MethodInfo(){
+        }
 
         public MethodInfo(MethodBase methodBase)
         {
             stopwatch = new Stopwatch();
             Methods = new List<MethodInfo>();
-            Name = methodBase.Name;
-            Class = methodBase.DeclaringType?.Name;
+            methodName = methodBase.Name;
+            className = methodBase.DeclaringType?.Name;
         }
 
         public void AddMethod(MethodInfo method)
@@ -33,6 +37,7 @@ namespace ClassLibrary1lab_spp
         public void StopMethodTrace()
         {
             stopwatch.Stop();
+            time = stopwatch.ElapsedMilliseconds;
         }
     }
 }

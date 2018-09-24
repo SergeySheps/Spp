@@ -45,15 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleOutput.cs" />
     <Compile Include="FileOutput.cs" />
     <Compile Include="IOutput.cs" />
+    <Compile Include="IOutputConsole.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="ITracer.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="MethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThreadResult.cs" />
-    <Compile Include="TraceThreadStructure.cs" />
     <Compile Include="Tracer.cs" />
     <Compile Include="TraceResult.cs" />
     <Compile Include="XmlSerializer.cs" />

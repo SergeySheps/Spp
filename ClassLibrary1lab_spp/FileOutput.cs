@@ -1,15 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace ClassLibrary1lab_spp
 {
-    public class FileOutput : IOutput
+    public class FileOutput : IOutputFile
     {
         public void OutputData(string text, string fileFormat)
         {
             File.WriteAllText("result" + fileFormat, text);
-            Console.WriteLine(text);
-            Console.WriteLine();
         }
     }
 }

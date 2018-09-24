@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 
 namespace ClassLibrary1lab_spp
 {
+    [Serializable]
     public class ThreadResult
     {
-        public long? Time => Methods[0]?.Time;
+        public int id = Thread.CurrentThread.ManagedThreadId;
+        public long time ;
         public List<MethodInfo> Methods { get; }  
         private readonly Stack<MethodInfo> stack;
 
@@ -33,6 +37,7 @@ namespace ClassLibrary1lab_spp
         public void StopMethodTrace()
         {
             stack.Pop().StopMethodTrace();
+            time = Methods[0].time;
         }
     }
 }

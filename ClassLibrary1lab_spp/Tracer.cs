@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace ClassLibrary1lab_spp
 {
     public class Tracer : ITracer
     {
-        public TraceResult TraceResult;
+        private TraceResult TraceResult;
 
         public Tracer()
         {
@@ -33,7 +27,7 @@ namespace ClassLibrary1lab_spp
         }
 
         public TraceResult GetTraceResult()
-        {
+        {      
             return TraceResult;
         }
     }

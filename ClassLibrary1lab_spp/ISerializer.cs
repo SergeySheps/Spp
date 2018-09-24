@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ClassLibrary1lab_spp
 {
     interface ISerializer
     {
-        string Serialize(object value);
+        string Serialize(List<ThreadResult> value);
     }
 }

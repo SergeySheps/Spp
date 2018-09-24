@@ -2,6 +2,8 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassLibrary1lab_spp;
+using System.Collections.Generic;
+using System;
 
 namespace Tracer.Tests
 {
@@ -9,14 +11,16 @@ namespace Tracer.Tests
     public class TracerTest
     {
         private TraceResult traceResult;
+        private List<Thread> threads;
 
         [TestInitialize]
         public void Init()
         {
             var tracer = new ClassLibrary1lab_spp.Tracer();
-
-            TestMethod1(tracer);
-            traceResult = tracer.TraceResult;
+            threads = new List<Thread>();
+            MultipleThreadMethod(tracer);
+            
+            traceResult = tracer.GetTraceResult();
         }
 
         [TestMethod]
@@ -24,7 +28,7 @@ namespace Tracer.Tests
         {
             long expected = 100;
 
-            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Time;
+            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.time;
             Assert.IsTrue(expected <= actual, $"Time should be equal ${expected}ms");
         }
 
@@ -33,7 +37,7 @@ namespace Tracer.Tests
         {
             long expected = 200;
 
-            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Time;
+            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.time;
 
             Assert.IsTrue(expected >= actual, $"Time should be equal ${expected}ms");
         }
@@ -43,7 +47,7 @@ namespace Tracer.Tests
         {
             string expected = nameof(TestMethod1);
 
-            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Methods[0].Name;
+            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Methods[0].methodName;
 
             Assert.IsTrue(expected == actual, $"Method name should be {expected}");
         }
@@ -53,7 +57,7 @@ namespace Tracer.Tests
         {
             string expected = "TracerTest";
 
-            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Methods[0].Class;
+            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Methods[0].className;
 
             Assert.IsTrue(expected == actual, $"Class name should be {expected}");
         }
@@ -61,11 +65,45 @@ namespace Tracer.Tests
         [TestMethod]
         public void TraceResult_ThreadId()
         {
-            int expected = Thread.CurrentThread.ManagedThreadId;
+            var result = true;
+            int errorId = 0;
 
-            var actual = traceResult.ThreadResults.Keys.Contains(expected);
+            foreach (var t in threads)
+            {
+                if (!traceResult.ThreadResults.Keys.Contains(t.ManagedThreadId))
+                {
+                    result = false;
+                    errorId = t.ManagedThreadId;
+                    break;
+                }
+            }
 
-            Assert.IsTrue(actual, $"Thread result should contain {expected} id");
+            Assert.IsTrue(result, $"Thread result should contain id = {errorId} ");
+        }
+
+        [TestMethod]
+        public void TraceResult_NestedCalls()
+        {
+            int expected = 1;
+
+            var actual = traceResult.ThreadResults.Values.FirstOrDefault()?.Methods[0].Methods.Count;
+
+            Assert.IsTrue(actual == expected, $"Thread result should contain {expected} nested call");
+        }
+
+        private void MultipleThreadMethod(ClassLibrary1lab_spp.Tracer tracer)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Thread thread = new Thread(()=>TestMethod1(tracer));
+                threads.Add(thread);
+                thread.Start();
+            }
+
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
         }
 
         private void TestMethod1(ClassLibrary1lab_spp.Tracer tracer)
